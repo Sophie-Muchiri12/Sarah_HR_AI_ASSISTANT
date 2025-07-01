@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: langflow-chatbot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: langflow run
+    envVars:
+      - key: LANGFLOW_PORT
+        value: 7860
+    plan: free
