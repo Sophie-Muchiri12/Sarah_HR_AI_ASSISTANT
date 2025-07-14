@@ -2,9 +2,18 @@ services:
   - type: web
     name: langflow-chatbot
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: langflow run
+    buildCommand: |
+      pip install --no-cache-dir -r requirements.txt
+    startCommand: langflow run --no-store --host 0.0.0.0 --port $PORT
     envVars:
       - key: LANGFLOW_PORT
-        value: 7860
+        value: $PORT
+      - key: LANGFLOW_DATABASE_URL
+        value: sqlite:///./langflow.db
+      - key: LANGFLOW_CACHE_TYPE
+        value: memory
+      - key: LANGFLOW_DEV
+        value: false
+      - key: PYTHONUNBUFFERED
+        value: 1
     plan: free
