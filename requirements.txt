@@ -1,3 +1,21 @@
-# Use the base version with fewer dependencies
-langflow-base==1.0.0a58
-uvicorn[standard]==0.23.2
+services:
+  - type: web
+    name: langflow-chatbot
+    env: python
+    buildCommand: |
+      pip install --no-cache-dir -r requirements.txt
+    startCommand: langflow run --no-store --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: LANGFLOW_PORT
+        value: $PORT
+      - key: LANGFLOW_DATABASE_URL
+        value: sqlite:///./langflow.db
+      - key: LANGFLOW_CACHE_TYPE
+        value: memory
+      - key: LANGFLOW_DEV
+        value: false
+      - key: PYTHONUNBUFFERED
+        value: 1
+    plan: free
+    # Force Python 3.11 or 3.12 (compatible with Langflow)
+    runtime: python-3.11

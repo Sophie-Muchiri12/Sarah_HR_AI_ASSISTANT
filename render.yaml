@@ -17,3 +17,5 @@ services:
       - key: PYTHONUNBUFFERED
         value: 1
     plan: free
+    # Force Python 3.11 or 3.12 (compatible with Langflow)
+    runtime: python-3.11
